@@ -9,14 +9,16 @@ const Navbar = () => {
       {/* Desktop Navbar */}
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-2xl font-bold">MyStore</div>
+        <div className="text-2xl font-bold"> 
+            <h1>Dark<span> Sale</span></h1>
+        </div>
 
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-6">
-          <Link href="#" className="hover:text-[#A1724E]">Home</Link>
-          <Link href="#" className="hover:text-[#A1724E]">Shop</Link>
-          <Link href="#" className="hover:text-[#A1724E]">Cart</Link>
-          <Link href="#" className="hover:text-[#A1724E]">Account</Link>
+          <Link href="#" className="hover:text-[#A1724E] text-[#482307]">Profile</Link>
+          <Link href="#" className=" ">
+          <button className='bg-[#482307] text-white px-4 py-1 rounded'>Login</button>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
