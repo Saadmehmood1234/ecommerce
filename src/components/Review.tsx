@@ -4,19 +4,19 @@ import { Star, StarHalf } from 'lucide-react';
 const Review = () => {
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      name: "Saad Mehmood",
       role: "Premium User",
       rating: 4.5,
       review: "Unbelievable savings! Got my Netflix subscription at 40% off. The process was seamless and instant delivery.",
     },
     {
-      name: "Mike Chen",
+      name: "Kamlesh",
       role: "Frequent Buyer",
       rating: 5,
       review: "Best platform for subscription deals. Customer support is top-notch and the discounts are real!",
     },
     {
-      name: "Emma Wilson",
+      name: "Saurav Joshi",
       role: "Content Creator",
       rating: 4.8,
       review: "Saved hundreds on multiple services. Highly recommended for anyone looking to optimize their subscriptions.",
