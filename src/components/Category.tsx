@@ -23,17 +23,17 @@ const categories = [
     img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
   },
   {
-    id: 3,
+    id: 31,
     name: "YouTube Premium",
     img: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png",
   },
   {
-    id: 4,
+    id: 41,
     name: "Spotify Premium",
     img: "https://www.scdn.co/i/_global/open-graph-default.png",
   },
   {
-    id: 5,
+    id: 51,
     name: "Udemy & Coursera Courses",
     img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
   },
