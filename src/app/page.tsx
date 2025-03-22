@@ -1,9 +1,23 @@
+import Category from '@/components/Category'
+import Faq from '@/components/Faq'
+import Featers from '@/components/Featers'
+import Header from '@/components/Header'
+import ProductSection from '@/components/ProductSection'
+import Review from '@/components/Review'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div className='text-white text-2xl font-bold flex items-center justify-center h-screen bg-gradient-to-tr from-[#0E091C] via-[#1F133D] to-[#0B1027]'>
-      Home
+    <div className='text-white flex flex-col flex-1  bg-gradient-to-tr from-[#0E091C] via-[#1F133D] to-[#0B1027] w-full h-full'>
+      <Header />
+      <Category />
+      <ProductSection />
+      <Featers />
+
+
+      <Review />
+      <Faq />
+
     </div>
   )
 }

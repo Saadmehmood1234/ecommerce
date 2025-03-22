@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {Toaster} from "react-hot-toast"
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,11 +29,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div>
-          {/* <Navbar /> */}
-          {children}
-        </div>
+        <div className="bg-gradient-to-tr from-[#0E091C] via-[#1F133D] min-h-screen to-[#0B1027]  flex flex-col justify-between  ">
+          <Navbar />
 
+          {children}
+
+         
+          <Footer />
+        </div>
         <Toaster />
       </body>
     </html>
