@@ -13,8 +13,6 @@ const Home = () => {
       <Category />
       <ProductSection />
       <Featers />
-
-
       <Review />
       <Faq />
 
