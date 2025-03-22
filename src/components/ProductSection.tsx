@@ -47,7 +47,7 @@ const ProductSection = () => {
         <h2 className="text-4xl font-bold text-center mb-24 bg-white bg-clip-text text-transparent">
           Discover Trending Subscriptions
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-[60vw]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-xl:gap-18 xl:grid-cols-3">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -77,14 +77,14 @@ const ProductSection = () => {
                   <h3 className="text-3xl font-bold mb-4">{product.name}</h3>
                   <p className="text-gray-300 mb-6 max-w-md">{product.description}</p>
                   <div className="flex items-center justify-center gap-4">
-                    <span className="text-2xl font-semibold line-through">
+                    <span className="text-2xl max-lg:text-xl font-semibold line-through">
                       ₹{product.originalPrice}/month
                     </span>
                     <span className="text-gray-400">|</span>
-                    <span className="text-green-400 text-2xl">{product.discount}</span>
+                    <span className="text-green-400 text-2xl max-lg:text-xl">{product.discount}</span>
                   </div>
                   <div>
-                    <h2 className="text-2xl mt-4">₹{product.finalPrice}/month</h2>
+                    <h2 className="text-2xl max-lg:text-xl mt-4">₹{product.finalPrice}/month</h2>
                   </div>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
