@@ -7,58 +7,58 @@ const categories = [
     name: "Netflix Premium",
     img: "https://upload.wikimedia.org/wikipedia/commons/7/75/Netflix_icon.svg",
   },
-
   {
-    id: 3,
+    id: 2,
     name: "YouTube Premium",
     img: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png",
+  },
+  {
+    id: 3,
+    name: "Spotify Premium",
+    img: "https://www.scdn.co/i/_global/open-graph-default.png",
   },
   {
     id: 4,
-    name: "Spotify Premium",
-    img: "https://www.scdn.co/i/_global/open-graph-default.png",
+    name: "Udemy & Coursera Courses",
+    img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
   },
   {
     id: 5,
-    name: "Udemy & Coursera Courses",
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
+    name: "Amazon Prime",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg",
   },
   {
-    id: 31,
-    name: "YouTube Premium",
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png",
-  },
-  {
-    id: 41,
-    name: "Spotify Premium",
-    img: "https://www.scdn.co/i/_global/open-graph-default.png",
-  },
-  {
-    id: 51,
-    name: "Udemy & Coursera Courses",
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg",
+    id: 6,
+    name: "Disney+ Hotstar",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Disney%2B_Hotstar_logo.svg",
   },
 ];
 
 const Category = () => {
   return (
-    <div className="flex flex-col gap-3 m-10">
-      <h1 className="text-center font-bold text-3xl text-[#fff] ">
-        Categories
+    <div className="py-10 px-6">
+      <h1 className="text-center font-bold text-4xl text-white mb-8">
+        Popular <span className="text-[#C27AFF]">Categories</span>
       </h1>
-      <div className="xl:w-[95%] m-auto  flex flex-wrap gap-8  justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {categories.map((category) => (
-          <Link href={`/category/cname`} key={category.id}>
-              <div  className="flex flex-col items-center gap-2 cursor-pointer">
-            <img
-              src={category.img}
-              alt={category.name}
-              className="w-[120px] h-[120px] object-cover rounded-full border-2 border-gray-300 shadow-md "
-            />
-            <h3 className="text-sm font-medium text-[#fff]">{category.name}</h3>
-          </div>
+          <Link
+            href={`/category/${category.name
+              .toLowerCase()
+              .replace(/\s+/g, "-")}`}
+            key={category.id}
+          >
+            <div className="flex flex-col items-center gap-3 cursor-pointer transform transition duration-300 hover:scale-105">
+              <img
+                src={category.img}
+                alt={category.name}
+                className="w-[100px] h-[100px] object-contain bg-white p-2 rounded-full border-2 border-gray-400 shadow-lg"
+              />
+              <h3 className="text-lg font-semibold text-white">
+                {category.name}
+              </h3>
+            </div>
           </Link>
-      
         ))}
       </div>
     </div>

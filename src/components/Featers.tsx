@@ -25,7 +25,7 @@ const Featers = () => {
     },
   ];
   return (
-    <div className="w-full flex justify-center items-center flex-col p-6 bg-gradient-to-tr from-[#160A25] via-[#180A25] to-[#0D0F29]">
+    <div className="w-full flex justify-center items-center flex-col bg-gradient-to-tr from-[#160A25] via-[#180A25] to-[#0D0F29] pt-12">
       <div className="flex justify-center items-center flex-col">
         <div className="max-w-4xl text-center w-full">
           <h1 className="text-5xl max-lg:text-4xl max-md:text-3xl mb-8">
@@ -54,7 +54,7 @@ const Featers = () => {
         <div className="w-full  max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 gap-8 xl:gap-12">
             <div className="flex flex-col gap-4 lg:gap-6 text-center lg:text-left">
-              <h2 className="text-2xl sm:text-3xl text-pink-600 font-semibold">
+              <h2 className="text-2xl sm:text-3xl text-[#A92EDF] font-semibold">
                 Why Choose Us
               </h2>
               <h2 className="text-3xl sm:text-4xl xl:text-5xl font-bold text-white">
@@ -71,7 +71,7 @@ const Featers = () => {
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="bg-[#0C1B44] rounded-xl p-6 hover:transform hover:scale-[1.02] transition-all duration-300 group flex-1 min-h-[320px]"
+                    className="bg-[#0C1B44] rounded-xl p-6 hover:transform hover:scale-[1.02] transition-all duration-300 group flex-1 min-h-[200px]"
                   >
                     <div
                       className={`bg-gradient-to-tr ${feature.color} w-fit p-3 rounded-2xl mb-4`}
@@ -84,12 +84,7 @@ const Featers = () => {
                     <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
                       {feature.description}
                     </p>
-                    <div className="flex items-center text-pink-500 hover:text-pink-400 cursor-pointer">
-                      <span className="mr-2 text-sm sm:text-base">
-                        Learn More
-                      </span>
-                      <ArrowRight className="size-4 sm:size-5" />
-                    </div>
+                  
                   </div>
                 ))}
               </div>
@@ -98,7 +93,7 @@ const Featers = () => {
         </div>
       </div>
 
-      <div className="flex justify-center items-center flex-col">
+      <div className="flex w-full p-12  justify-center items-center flex-col">
         <div className="max-w-4xl text-center w-full">
           <h1 className="text-5xl max-lg:text-4xl max-md:text-3xl mb-8">
             A Simple and Easy to Purchase The Best Subscription at Lowest Price
@@ -107,6 +102,7 @@ const Featers = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
             distinctio porro et molestiae quaerat laboriosam saepe ut nesciunt,
           </p>
+          <button className="w-64 mt-12 rounded-2xl text-2xl h-16 hover:scale-[1.02] cursor-pointer bg-gradient-to-tr from-[#500150] via-[#42026d] to-[#031877] px-6">Get Subscriptions</button>
         </div>
       </div>
     </div>
