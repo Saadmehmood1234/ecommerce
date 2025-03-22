@@ -3,5 +3,24 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #FFF7E2;
+  color:#482307;
 }
 
+.bgMain{
+  background-color: #FFF7E2;
+}
+.brnText{
+color:#482307;
+}
+.lightText{
+  color: #A1724E;
+}
+
+.redText{
+  color: #E15549;
+}
+
+.redBg{
+  background-color: #E15549;
+}
