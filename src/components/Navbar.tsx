@@ -17,13 +17,16 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <nav className="p-4">
-      <div className=" flex items-center bg-[#1F133D] justify-between fixed   z-[110] px-4 py-2 drop-shadow-md w-[90vw] top-6 left-[50%] translate-[-50%]  rounded-2xl h-[60px] mt-5">
+    <nav className="">
+      <div className=" flex items-center bg-[#1F133D] justify-between fixed px-3 py-2  z-[110]  drop-shadow-md  left-0  right-0 top-0  rounded-2xl h-[60px] ">
+        <Link href={"/"}>
         <div className="text-2xl font-bold">
           <h1 className="text-[#C27AFF] text-3xl">
             Dark<span className="text-white">Sale</span>
           </h1>
         </div>
+        </Link>
+       
         <div className="flex gap-1 justify-center items-center">
           <form action="" className="flex items-center justify-center relative">
             <Search className="absolute left-2 text-[#6d6d6dc4]" size={20} />
@@ -34,7 +37,7 @@ const Navbar = () => {
             />
           </form>
           <Link href="/auth/register">
-            <button className="text-white bg-[#310557] w-[120px] h-[39px] font-bold rounded  cursor-pointer hover:bg-[#1F133D] ">
+            <button className="text-white bg-[#1F133D] w-[120px] h-[39px] font-bold rounded  cursor-pointer hover:bg-[#1F133D] ">
               Sign up
             </button>
           </Link>

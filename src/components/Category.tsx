@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const categories = [
@@ -47,7 +48,8 @@ const Category = () => {
       </h1>
       <div className="xl:w-[95%] m-auto  flex flex-wrap gap-8  justify-center">
         {categories.map((category) => (
-          <div key={category.id} className="flex flex-col items-center gap-2 cursor-pointer">
+          <Link href={`/category/cname`} key={category.id}>
+              <div  className="flex flex-col items-center gap-2 cursor-pointer">
             <img
               src={category.img}
               alt={category.name}
@@ -55,6 +57,8 @@ const Category = () => {
             />
             <h3 className="text-sm font-medium text-[#fff]">{category.name}</h3>
           </div>
+          </Link>
+      
         ))}
       </div>
     </div>
