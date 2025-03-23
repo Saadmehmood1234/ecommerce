@@ -38,7 +38,6 @@ const Category = () => {
               }}
               className="flex flex-col items-center gap-3 cursor-pointer transform transition duration-300 hover:scale-105"
             >
-              
               <img
                 src={category.img}
                 alt={category.name}
