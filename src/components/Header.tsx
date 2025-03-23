@@ -66,7 +66,7 @@ interface Slide {
 const slides: Slide[] = [
   {
     id: 1,
-    bg: "https://assets.nflxext.com/ffe/siteui/vlv3/a43711df-c428-4f88-8bb3-b2ac5f20608f/32935458-d049-44c0-87bd-9800dc0c6b0a/IN-en-20230227-popsignuptwoweeks-perspective_alpha_website_large.jpg",
+    bg: "/netback.jpg",
     text: "Get Netflix Premium at the Lowest Price!",
     offer: "Save up to 40%",
   },
@@ -78,19 +78,19 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    bg: "https://i.ibb.co/4T2Ntqx/yt-banner.jpg",
+    bg: "/youpre.avif",
     text: "YouTube Premium at Unbeatable Prices!",
     offer: "60% Off Annual Plan",
   },
   {
     id: 4,
-    bg: "https://i.ibb.co/3pJ9Z7Q/udemy-banner.jpg",
+    bg: "/udem.jpg",
     text: "Top Courses at Huge Discounts!",
     offer: "Courses from ₹299",
   },
   {
     id: 5,
-    bg: "https://i.ibb.co/8sLzm7k/spotify-banner.jpg",
+    bg: "/spotpre.jpg",
     text: "Spotify Premium for Less!",
     offer: "3 Months Free",
   },
@@ -103,7 +103,7 @@ const settings: Settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 5000,
+  autoplaySpeed: 3000,
   arrows: false,
   fade: true,
   appendDots: (dots) => (
