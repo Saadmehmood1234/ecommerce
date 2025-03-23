@@ -14,11 +14,10 @@ const categories = [
 ];
 
 const Category = () => {
-  const categoryRefs = useRef<(HTMLDivElement | null)[]>([]); // ✅ Correctly typed ref
-
+  const categoryRefs = useRef<(HTMLDivElement | null)[]>([]); 
   useGSAP(() => {
     gsap.fromTo(
-      categoryRefs.current.filter(Boolean), // ✅ Ensure null values are removed
+      categoryRefs.current.filter(Boolean), 
       { opacity: 0, y: 50 },
       { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }
     );
