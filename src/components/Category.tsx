@@ -26,7 +26,7 @@ const Category = () => {
 
   return (
     <div className="py-10 px-6">
-      <h1 className="text-center font-bold text-4xl text-white mb-8">
+      <h1 className="text-center font-bold text-4xl max-md:text-3xl text-white mb-8">
         Popular <span className="text-[#C27AFF]">Categories</span>
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -41,9 +41,9 @@ const Category = () => {
               <img
                 src={category.img}
                 alt={category.name}
-                className="w-[100px] h-[100px] object-contain bg-white p-2 rounded-full border-2 border-gray-400 shadow-lg"
+                className="w-[100px] h-[100px] max-md:w-[80px] max-md:h-[80px] object-contain bg-white p-2 rounded-full border-2 border-gray-400 shadow-lg"
               />
-              <h3 className="text-lg font-semibold text-white">{category.name}</h3>
+              <h3 className="text-lg font-semibold max-sm:text-sm text-white">{category.name}</h3>
             </div>
           </Link>
         ))}
