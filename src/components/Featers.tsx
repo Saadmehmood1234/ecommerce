@@ -155,6 +155,7 @@ const Features = () => {
                     <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6">
                       {feature.description}
                     </p>
+
                     
                   </div>
                 ))}
