@@ -7,7 +7,6 @@ export async function middleware(req: NextRequest) {
   const cookieName = isProduction
     ? "__Secure-auth.session-token"
     : "dev-auth.session-token";
-
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
