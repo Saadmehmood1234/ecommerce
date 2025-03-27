@@ -17,7 +17,6 @@ export async function middleware(req: NextRequest) {
   if (!token) {
     return NextResponse.redirect(new URL("/signin", nextUrl));
   }
-
   if (nextUrl.pathname.startsWith("/admin") && token.role !== "admin") {
     return NextResponse.redirect(new URL("/", nextUrl));
   }
