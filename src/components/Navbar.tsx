@@ -40,9 +40,9 @@ const Navbar = () => {
           <Link href="/cart">
             <ShoppingCart className="text-white cursor-pointer hover:text-[#C27AFF] transition-all" size={24} />
           </Link>
-          <Link href="/auth/register">
+          <Link href="/auth/signin">
             <button className="text-white font-bold bg-[#A92EDF] hover:bg-[#8e5ea3] px-5 py-2 rounded-lg cursor-pointer transition-all">
-              Sign Up
+              Sign In
             </button>
           </Link>
         </div>
