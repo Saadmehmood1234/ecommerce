@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
-
+import Link from "next/link";
 const products = [
   {
     id: 1,
@@ -42,7 +42,7 @@ const ProductSection = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="flex w-full flex-col items-center px-4 sm:px-6 lg:px-8"
+        className="flex w-full flex-col items-center px-8 sm:px-6 lg:px-8"
       >
         <h2 className="text-4xl font-bold text-center mb-24 bg-white bg-clip-text text-transparent">
           Discover Trending Subscriptions
@@ -75,24 +75,32 @@ const ProductSection = () => {
               >
                 <div className="mt-20 text-center text-white">
                   <h3 className="text-3xl font-bold mb-4">{product.name}</h3>
-                  <p className="text-gray-300 mb-6 max-w-md">{product.description}</p>
+                  <p className="text-gray-300 mb-6 max-w-md">
+                    {product.description}
+                  </p>
                   <div className="flex items-center justify-center gap-4">
                     <span className="text-2xl max-lg:text-xl font-semibold line-through">
                       ₹{product.originalPrice}/month
                     </span>
                     <span className="text-gray-400">|</span>
-                    <span className="text-green-400 text-2xl max-lg:text-xl">{product.discount}</span>
+                    <span className="text-green-400 text-2xl max-lg:text-xl">
+                      {product.discount}
+                    </span>
                   </div>
                   <div>
-                    <h2 className="text-2xl max-lg:text-xl mt-4">₹{product.finalPrice}/month</h2>
+                    <h2 className="text-2xl max-lg:text-xl mt-4">
+                      ₹{product.finalPrice}/month
+                    </h2>
                   </div>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 transform"
-                  >
-                    Purchase Now
-                  </motion.button>
+                  <Link href={`/product/${product.id}`}>
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 transform"
+                    >
+                      Purchase Now
+                    </motion.button>
+                  </Link>
                 </div>
               </motion.div>
             </motion.div>

@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { ChevronDown, HelpCircle, Mail, MessageSquareText } from "lucide-react";
+import ContactSupportForm from "./ContactSupportForm";
 
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const faqItems = [
     {
       question: "How do I purchase a subscription?",
@@ -44,73 +45,80 @@ const Faq = () => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col p-6 bg-gradient-to-tr from-[#160A25] via-[#180A25] to-[#0D0F29]">
-      <div className="flex justify-center items-center w-full my-20">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <div className="flex flex-col items-center text-center mb-16">
-            <div className="inline-flex items-center gap-2 text-[#A92EDF] mb-4">
-              <HelpCircle className="size-6" />
-              <h2 className="text-2xl sm:text-3xl font-semibold">FAQs</h2>
+      {!isOpen ? (
+        <div className="flex justify-center items-center w-full my-20">
+          <div className="w-full max-w-7xl mx-auto px-4">
+            <div className="flex flex-col items-center text-center mb-16">
+              <div className="inline-flex items-center gap-2 text-[#A92EDF] mb-4">
+                <HelpCircle className="size-6" />
+                <h2 className="text-2xl sm:text-3xl font-semibold">FAQs</h2>
+              </div>
+              <h1 className="text-3xl sm:text-4xl xl:text-5xl font-bold text-white mb-6">
+                Frequently Asked Questions
+              </h1>
+              <p className="text-base sm:text-lg text-gray-400 max-w-3xl">
+                Find quick answers to common questions about our platform,
+                subscriptions, and payment process.
+              </p>
             </div>
-            <h1 className="text-3xl sm:text-4xl xl:text-5xl font-bold text-white mb-6">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-base sm:text-lg text-gray-400 max-w-3xl">
-              Find quick answers to common questions about our platform,
-              subscriptions, and payment process.
-            </p>
-          </div>
 
-          <div className="flex max-lg:flex-col max-lg:gap-12 gap-4">
-            <div className="grid grid-cols-1  gap-6">
-              {faqItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-[#0C1B44] rounded-xl p-6 transition-all duration-300 cursor-pointer"
-                  onClick={() => toggleAccordion(index)}
-                >
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-lg sm:text-xl font-semibold text-white pr-4">
-                      {item.question}
-                    </h3>
-                    <ChevronDown
-                      className={`size-6 text-[#A92EDF] transition-transform ${
-                        activeIndex === index ? "rotate-180" : ""
-                      }`}
-                    />
-                  </div>
+            <div className="flex max-lg:flex-col max-lg:gap-12 gap-4">
+              <div className="grid grid-cols-1  gap-6">
+                {faqItems.map((item, index) => (
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      activeIndex === index ? "max-h-96 mt-4" : "max-h-0"
-                    }`}
+                    key={index}
+                    className="bg-[#0C1B44] rounded-xl p-6 transition-all duration-300 cursor-pointer"
+                    onClick={() => toggleAccordion(index)}
                   >
-                    <p className="text-gray-400 text-base sm:text-lg">
-                      {item.answer}
-                    </p>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white pr-4">
+                        {item.question}
+                      </h3>
+                      <ChevronDown
+                        className={`size-6 text-[#A92EDF] transition-transform ${
+                          activeIndex === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ${
+                        activeIndex === index ? "max-h-96 mt-4" : "max-h-0"
+                      }`}
+                    >
+                      <p className="text-gray-400 text-base sm:text-lg">
+                        {item.answer}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className="text-center">
-              <div className="bg-[#0C1B44] rounded-2xl p-8 md:p-12 mx-auto max-w-7xl">
-                <div className="flex flex-col items-center">
-                  <MessageSquareText className="size-12 text-[#A92EDF] mb-6" />
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-                    Still have questions?
-                  </h2>
-                  <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-                    Our support team is available 24/7 to help with any
-                    questions or issues you might encounter.
-                  </p>
-                  <button className="bg-[#A92EDF] cursor-p hover:bg-[#70328b] text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 flex items-center gap-2">
-                    <Mail className="size-5" />
-                    Contact Support
-                  </button>
+                ))}
+              </div>
+              <div className="text-center">
+                <div className="bg-[#0C1B44] rounded-2xl p-8 md:p-12 mx-auto max-w-7xl">
+                  <div className="flex flex-col items-center">
+                    <MessageSquareText className="size-12 text-[#A92EDF] mb-6" />
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                      Still have questions?
+                    </h2>
+                    <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+                      Our support team is available 24/7 to help with any
+                      questions or issues you might encounter.
+                    </p>
+                    <button
+                      onClick={() => setIsOpen((prev) => !prev)}
+                      className="bg-[#A92EDF] cursor-p hover:bg-[#70328b] text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 flex items-center gap-2"
+                    >
+                      <Mail className="size-5" />
+                      Contact Support
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <ContactSupportForm setIsOpen={setIsOpen}/>
+      )}
     </div>
   );
 };

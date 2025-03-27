@@ -33,7 +33,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Tinder, Amazon Prime, etc.."
-            className="w-full h-10 bg-[#310557] text-white rounded-lg pl-10 pr-4 outline-none focus:ring-2 focus:ring-[#C27AFF]"
+            className="w-full h-10 bg-[#310557] text-white rounded-lg pl-10 pr-4 outline-none focus:ring-2 focus:ring-[#A92EDF]"
           />
         </div>
         <div className="hidden md:flex items-center gap-6">
@@ -41,7 +41,7 @@ const Navbar = () => {
             <ShoppingCart className="text-white cursor-pointer hover:text-[#C27AFF] transition-all" size={24} />
           </Link>
           <Link href="/auth/register">
-            <button className="text-white font-bold bg-[#C27AFF] px-5 py-2 rounded-lg hover:bg-[#9C5EC3] transition-all">
+            <button className="text-white font-bold bg-[#A92EDF] hover:bg-[#8e5ea3] px-5 py-2 rounded-lg cursor-pointer transition-all">
               Sign Up
             </button>
           </Link>
