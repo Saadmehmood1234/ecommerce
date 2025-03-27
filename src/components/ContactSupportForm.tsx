@@ -132,6 +132,7 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
           </div>
         </div>
       </form>
+      
     </motion.div>
   );
 };
