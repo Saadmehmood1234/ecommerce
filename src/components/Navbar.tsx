@@ -49,6 +49,7 @@ const Navbar = () => {
         <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
+        
       </div>
       <div className={`md:hidden transition-all ${isMobileMenuOpen ? "block" : "hidden"} bg-[#1F133D]`}>
         <div className="flex flex-col items-center py-4 gap-4">
