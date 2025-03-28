@@ -54,9 +54,9 @@ const Navbar = () => {
         <div className="flex flex-col items-center py-4 gap-4">
           <Link href="/" className="text-white hover:text-[#C27AFF] transition-all">Home</Link>
           <Link href="/cart" className="text-white hover:text-[#C27AFF] transition-all">Cart</Link>
-          <Link href="/auth/register">
+          <Link href="/auth/signin">
             <button className="text-white font-bold bg-[#C27AFF] px-5 py-2 rounded-lg hover:bg-[#9C5EC3] transition-all">
-              Sign Up
+              Sign In
             </button>
           </Link>
         </div>
