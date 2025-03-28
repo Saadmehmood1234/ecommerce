@@ -1,6 +1,15 @@
 "use client";
+import { contactUs } from "@/app/actions.ts/contact.actions";
 import { motion } from "framer-motion";
-import { Mail, User, AlertCircle, MessageSquare, ShieldCheck, X } from "lucide-react";
+import {
+  Mail,
+  User,
+  AlertCircle,
+  MessageSquare,
+  ShieldCheck,
+  X,
+} from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 type ContactPropType = {
@@ -8,10 +17,30 @@ type ContactPropType = {
 };
 
 const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const onSubmit = async (data: any) => {
+    try {
+      console.log(data);
+      const res = await contactUs(data);
+      if (!res.success) {
+        setError("Error in Sending The message");
+        setMessage("");
+        return;
+      }
+      setMessage("Message Sent Successfully");
+      setError("");
+      reset();
+    } catch (error: any) {
+      setError("Error in Sending the Message");
+      setMessage("");
+    }
   };
 
   return (
@@ -21,7 +50,6 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
       transition={{ duration: 0.5 }}
       className="relative max-w-2xl mx-auto p-6 sm:p-8 bg-gradient-to-br from-[#0C1B44] to-[#1A0C3D] rounded-3xl border-2 border-[#A92EDF]/30 shadow-2xl"
     >
-      {/* Close Icon */}
       <button
         onClick={() => setIsOpen(false)}
         className="absolute top-4 right-4 text-gray-300 hover:text-red-400 transition"
@@ -33,7 +61,12 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
         <h2 className="text-3xl font-bold bg-gradient-to-r from-[#A92EDF] to-[#A92EDF] bg-clip-text text-transparent">
           Contact Support
         </h2>
-        <p className="text-gray-400 mt-2">We'll get back to you within 24 hours</p>
+        <p className="text-gray-400 mt-2">
+          We'll get back to you within 24 hours
+        </p>
+
+        {message && <p className="text-xl text-green-500">{message}</p>}
+        {error && <p className="text-xl text-red-500">{error}</p>}
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -41,7 +74,10 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
           <div className="relative">
             <label className="block text-gray-300 mb-2">Your Name</label>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C27AFF]" size={20} />
+              <User
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C27AFF]"
+                size={20}
+              />
               <input
                 {...register("name", { required: true })}
                 className="w-full pl-10 pr-4 py-3 bg-[#0C1B44] rounded-lg border border-[#A92EDF]/30 focus:border-[#C27AFF] focus:outline-none"
@@ -58,9 +94,15 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
           <div className="relative">
             <label className="block text-gray-300 mb-2">Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C27AFF]" size={20} />
+              <Mail
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#C27AFF]"
+                size={20}
+              />
               <input
-                {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                {...register("email", {
+                  required: true,
+                  pattern: /^\S+@\S+$/i,
+                })}
                 className="w-full pl-10 pr-4 py-3 bg-[#0C1B44] rounded-lg border border-[#A92EDF]/30 focus:border-[#C27AFF] focus:outline-none"
                 placeholder="saad@gmail.com"
               />
@@ -85,7 +127,10 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
               <option value="account">Account Help</option>
               <option value="other">Other</option>
             </select>
-            <AlertCircle className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C27AFF]" size={20} />
+            <AlertCircle
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#C27AFF]"
+              size={20}
+            />
           </div>
           {errors.subject && (
             <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
@@ -96,7 +141,10 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
         <div className="relative">
           <label className="block text-gray-300 mb-2">Message</label>
           <div className="relative">
-            <MessageSquare className="absolute left-3 top-4 text-[#C27AFF]" size={20} />
+            <MessageSquare
+              className="absolute left-3 top-4 text-[#C27AFF]"
+              size={20}
+            />
             <textarea
               {...register("message", { required: true })}
               className="w-full pl-10 pr-4 py-3 bg-[#0C1B44] rounded-lg border border-[#A92EDF]/30 focus:border-[#C27AFF] focus:outline-none min-h-[150px]"
@@ -132,8 +180,6 @@ const ContactSupportForm = ({ setIsOpen }: ContactPropType) => {
           </div>
         </div>
       </form>
-    
-    
     </motion.div>
   );
 };

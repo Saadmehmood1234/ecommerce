@@ -75,7 +75,7 @@ const ProductDetail = () => {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   whileHover={{ scale: 1.05 }}
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 m-2"
                 >
                   <img
                     src={img}

@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -8,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Mail, Lock } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -29,7 +30,11 @@ export default function SignInPage() {
     },
   });
 
-  const { handleSubmit, register, formState: { errors } } = form;
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = form;
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
@@ -69,16 +74,25 @@ export default function SignInPage() {
             <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-tr from-[#500150] via-[#42026d] to-[#031877] rounded-full blur-2xl opacity-20" />
 
             <div className="flex flex-col items-center space-y-8">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-[#A92EDF] to-purple-500 bg-clip-text text-transparent">
-                Sign In
-              </h2>
-
-              <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-6">
+              <div className="w-full flex flex-col justify-center items-center gap-2">
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-[#A92EDF] to-purple-500 bg-clip-text text-transparent">
+                  Sign In
+                </h2>
+                <h2 className="text-3xl text-white text-center">
+                  Welcome Back
+                </h2>
+              </div>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="w-full space-y-6"
+              >
                 <Input
                   label="Email"
                   icon={<Mail className="h-5 w-5 text-purple-500" />}
                   {...register("email")}
-                  error={errors.email ? { message: errors.email.message } : undefined}
+                  error={
+                    errors.email ? { message: errors.email.message } : undefined
+                  }
                 />
 
                 <Input
@@ -86,12 +100,21 @@ export default function SignInPage() {
                   type="password"
                   icon={<Lock className="h-5 w-5 text-purple-500" />}
                   {...register("password")}
-                  error={errors.password ? { message: errors.password.message } : undefined}
+                  error={
+                    errors.password
+                      ? { message: errors.password.message }
+                      : undefined
+                  }
                 />
 
-                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+                {error && (
+                  <p className="text-red-500 text-sm text-center">{error}</p>
+                )}
 
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Button
                     type="submit"
                     className="w-full bg-[#A92EDF] hover:bg-[#8e5ea3] text-white font-semibold py-4 rounded-xl transition-all"
@@ -111,12 +134,10 @@ export default function SignInPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 className="w-full flex items-center justify-center space-x-2 bg-[#0C1B44] border-2 border-[#A92EDF]/20 text-white py-4 rounded-xl transition-all"
-                onClick={() => signIn("google")}
               >
-                {/* Replace with proper Google icon if needed */}
-                <span>Continue with Google</span>
+                <FaGoogle className="text-xl" />
+                <span>Google</span>
               </motion.button>
-
               <p className="text-gray-400 text-center">
                 Don't have an account?{" "}
                 <button
