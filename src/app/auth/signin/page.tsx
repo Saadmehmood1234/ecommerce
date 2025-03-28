@@ -44,6 +44,7 @@ export default function SignInPage() {
         email: values.email,
         password: values.password,
         redirect: false,
+        
       });
       if (result?.error) {
         setError("Invalid email or password");

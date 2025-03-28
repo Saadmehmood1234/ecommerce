@@ -17,7 +17,6 @@ const Navbar = () => {
   }, []);
   return (
     <nav className="fixed w-full top-0 left-0 z-50 bg-[#1F133D] shadow-lg">
-
       <div className="flex items-center justify-between px-6 py-3">
         <Link href="/">
           <div className="text-2xl font-bold cursor-pointer">
@@ -36,7 +35,10 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex items-center gap-6">
           <Link href="/cart">
-            <ShoppingCart className="text-white cursor-pointer hover:text-[#C27AFF] transition-all" size={24} />
+            <ShoppingCart
+              className="text-white cursor-pointer hover:text-[#C27AFF] transition-all"
+              size={24}
+            />
           </Link>
           <Link href="/auth/signin">
             <button className="text-white font-bold bg-[#A92EDF] hover:bg-[#8e5ea3] px-5 py-2 rounded-lg cursor-pointer transition-all">
@@ -44,15 +46,31 @@ const Navbar = () => {
             </button>
           </Link>
         </div>
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+        <button
+          className="md:hidden text-white"
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+        >
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-
       </div>
-      <div className={`md:hidden transition-all ${isMobileMenuOpen ? "block" : "hidden"} bg-[#1F133D]`}>
+      <div
+        className={`md:hidden transition-all ${
+          isMobileMenuOpen ? "block" : "hidden"
+        } bg-[#1F133D]`}
+      >
         <div className="flex flex-col items-center py-4 gap-4">
-          <Link href="/" className="text-white hover:text-[#C27AFF] transition-all">Home</Link>
-          <Link href="/cart" className="text-white hover:text-[#C27AFF] transition-all">Cart</Link>
+          <Link
+            href="/"
+            className="text-white hover:text-[#C27AFF] transition-all"
+          >
+            Home
+          </Link>
+          <Link
+            href="/cart"
+            className="text-white hover:text-[#C27AFF] transition-all"
+          >
+            Cart
+          </Link>
           <Link href="/auth/signin">
             <button className="text-white font-bold bg-[#C27AFF] px-5 py-2 rounded-lg hover:bg-[#9C5EC3] transition-all">
               Sign In
