@@ -2,7 +2,6 @@
 import { Home, Search, ShoppingCart, User, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
