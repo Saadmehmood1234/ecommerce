@@ -16,7 +16,6 @@ const Navbar = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
   return (
     <nav className="fixed w-full top-0 left-0 z-50 bg-[#1F133D] shadow-lg">
 
@@ -49,7 +48,7 @@ const Navbar = () => {
         <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-        
+
       </div>
       <div className={`md:hidden transition-all ${isMobileMenuOpen ? "block" : "hidden"} bg-[#1F133D]`}>
         <div className="flex flex-col items-center py-4 gap-4">
