@@ -79,12 +79,13 @@ const ProductSection = () => {
                         className="w-full h-full  object-cover rounded-full"
                       />
                     </div>
+                    
                   </motion.div>
                   <motion.div
                     className="bg-[#0C1B44] w-full flex flex-col justify-center items-center hover:border-2 border-[#A92EDF] rounded-3xl px-8 pb-8 shadow-xl hover:shadow-2xl transition-shadow"
                     whileHover={{ scale: 1.02 }}
                   >
-                    
+
                     <div className="mt-20 text-center text-white">
                       <h3 className="text-2xl font-bold mb-4">
                         {product.title}
