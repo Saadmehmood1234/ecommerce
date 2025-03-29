@@ -1,15 +1,12 @@
 "use server";
-
 import { dbConnect } from "@/lib/dbConnect";
 import { Contact } from "@/model/Contact";
-
 interface ContactData {
   name: string;
   email: string;
   message: string;
   subject: string;
 }
-
 export const contactUs = async (data: ContactData) => {
   try {
     await dbConnect();
