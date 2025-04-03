@@ -79,20 +79,18 @@ const ProductSection = () => {
                         className="w-full h-full  object-cover rounded-full"
                       />
                     </div>
-                    
                   </motion.div>
                   <motion.div
                     className="bg-[#0C1B44] w-full flex flex-col justify-center items-center hover:border-2 border-[#A92EDF] rounded-3xl px-8 pb-8 shadow-xl hover:shadow-2xl transition-shadow"
                     whileHover={{ scale: 1.02 }}
                   >
-
                     <div className="mt-20 text-center text-white">
                       <h3 className="text-2xl font-bold mb-4">
                         {product.title}
                       </h3>
                       <p className="text-gray-300 text-base max-sm:text-md  leading-relaxed">
                         {product.description.length > 80
-                          ? product.description.substring(0, 80) 
+                          ? product.description.substring(0, 80)
                           : product.description}
                       </p>
 
@@ -110,7 +108,7 @@ const ProductSection = () => {
                           ₹{product.price}/month
                         </h2>
                       </div>
-                      {/* <Link href={`/product/${product.id}`}> */}
+
                       <motion.button
                         onClick={() => handleDetail(product)}
                         whileHover={{ scale: 1.1 }}
@@ -119,7 +117,6 @@ const ProductSection = () => {
                       >
                         Purchase Now
                       </motion.button>
-                      {/* </Link> */}
                     </div>
                   </motion.div>
                 </motion.div>

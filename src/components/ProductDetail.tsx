@@ -1,7 +1,15 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ShoppingCart, CheckCircle, ShieldCheck, Zap, X } from "lucide-react";
+import Link from "next/link";
+import {
+  ShoppingCart,
+  CheckCircle,
+  ShieldCheck,
+  Zap,
+  X,
+  ShoppingBag,
+} from "lucide-react";
 import Image from "next/image";
 import { KeyRound, Monitor, Users, Smartphone } from "lucide-react";
 import { Product } from "@/lib/types";
@@ -160,6 +168,17 @@ const ProductDetail = ({
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3">
+               <Link href={"/payment"}>
+               <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-[#A92EDF] hover:bg-[#8e5ea3] text-white font-bold py-2 px-4 rounded-xl flex items-center justify-center space-x-2"
+                  // onClick={}
+                >
+                  <ShoppingBag className="text-white" size={20} />
+                  <span>Buy Now</span>
+                </motion.button>
+               </Link>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -167,7 +186,7 @@ const ProductDetail = ({
                   onClick={addToCart}
                 >
                   <ShoppingCart className="text-white" size={20} />
-                  <span>Buy Now</span>
+                  <span>Add To Cart</span>
                 </motion.button>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-gray-400 text-sm sm:text-base">

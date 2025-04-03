@@ -12,20 +12,8 @@ import {
 import { signOut } from "next-auth/react";
 
 const Footer = () => {
-  const [message, setMessage] = useState("");
-  const router = useRouter();
-  const handleSingOut = () => {
-    signOut();
-
-    setTimeout(() => {
-      setMessage("");
-      router.push("/");
-    }, 1000);
-    setMessage("SignOut Successfully");
-  };
   return (
     <div className="w-full flex justify-center items-center flex-col p-6 bg-gradient-to-tr from-[#160A25] via-[#180A25] to-[#0D0F29] border-t border-gray-800">
-      {message && <p className="text-2xl text-green-500">{message}</p>}
       <div className="w-full max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           <div className="md:col-span-2 lg:col-span-1">
@@ -35,9 +23,6 @@ const Footer = () => {
             <p className="text-gray-400 mt-4 text-sm">
               Your gateway to premium subscriptions at unmatched prices.
             </p>
-            <button className="mt-2" onClick={handleSingOut}>
-              <LogOut />
-            </button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="mt-6 md:mt-0">
