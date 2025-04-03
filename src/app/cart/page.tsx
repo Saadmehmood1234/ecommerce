@@ -1,44 +1,83 @@
 "use client";
+
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Trash2,
-  Plus,
-  Minus,
-  ShieldCheck,
-  TicketPercent,
-  ArrowRight,
-  ShoppingCart,
-} from "lucide-react";
-import { useState } from "react";
+import { Trash2, Plus, Minus, ArrowRight, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-export default function CartSection() {
-  const [cart, setCart] = useState([
-    { id: 1, name: "Premium Plan", price: 29.99, quantity: 1 },
-    { id: 2, name: "4K Streaming", price: 19.99, quantity: 2 },
-    { id: 3, name: "Multi-User Access", price: 9.99, quantity: 1 },
-  ]);
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/lib/store";
+import { fetchCart, removeFromCart, addToCart } from "@/redux/slices/cartSlice";
+import toast from "react-hot-toast";
 
-  const [promoCode, setPromoCode] = useState("");
+export default function CartPage() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { cart, status, error } = useSelector((state: RootState) => state.cart);
   const [isLoading, setIsLoading] = useState(false);
+  const [updatingItems, setUpdatingItems] = useState<Record<string, boolean>>({});
 
-  const removeItem = (id: number) => {
-    setCart(cart.filter((item) => item.id !== id));
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
+  const handleRemoveFromCart = async (productId: string) => {
+    setUpdatingItems(prev => ({ ...prev, [productId]: true }));
+    try {
+      await dispatch(removeFromCart(productId)).unwrap();
+      toast.success("Item removed from cart");
+    } catch (error) {
+      toast.error("Failed to remove item");
+      console.error("Remove from cart error:", error);
+    } finally {
+      setUpdatingItems(prev => ({ ...prev, [productId]: false }));
+    }
   };
 
-  const updateQuantity = (id: number, newQuantity: number) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, newQuantity) } : item
-      )
-    );
+  const handleUpdateQuantity = async (productId: string, newQuantity: number) => {
+    if (newQuantity < 1) {
+      handleRemoveFromCart(productId);
+      return;
+    }
+
+    setUpdatingItems(prev => ({ ...prev, [productId]: true }));
+    try {
+      const item = cart.items.find((item) => item.product._id === productId);
+      if (item) {
+        await dispatch(
+          addToCart({
+            product: productId,
+            quantity: newQuantity,
+            price: item.price / item.quantity, // Maintain unit price
+            subscriptionPlan: item.subscriptionPlan,
+          })
+        ).unwrap();
+      }
+    } catch (error) {
+      toast.error("Failed to update quantity");
+      console.error("Update quantity error:", error);
+    } finally {
+      setUpdatingItems(prev => ({ ...prev, [productId]: false }));
+    }
   };
 
-  const subtotal = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  const tax = subtotal * 0.07;
-  const total = subtotal + tax;
+  const getUniqueCartItems = () => {
+    const uniqueItemsMap = new Map<string, typeof cart.items[0]>();
+
+    cart.items.forEach(item => {
+      const key = `${item.product._id}-${item.subscriptionPlan || 'none'}`;
+      if (uniqueItemsMap.has(key)) {
+        console.warn(`Duplicate cart item found for product ${item.product._id}`);
+      } else {
+        uniqueItemsMap.set(key, item);
+      }
+    });
+
+    return Array.from(uniqueItemsMap.values());
+  };
+
+  const uniqueCartItems = getUniqueCartItems();
+  
+  if (status === "loading") return <p className="text-center py-12">Loading...</p>;
+  if (status === "failed") return <p className="text-center py-12 text-red-500">Error: {error}</p>;
 
   return (
     <motion.div
@@ -55,12 +94,12 @@ export default function CartSection() {
       </div>
 
       <AnimatePresence>
-        {cart.length > 0 ? (
+        {uniqueCartItems.length > 0 ? (
           <>
             <ul className="space-y-4 mb-6 sm:mb-8">
-              {cart.map((item) => (
+              {uniqueCartItems.map((item) => (
                 <motion.li
-                  key={item.id}
+                  key={`${item.product._id}-${item.subscriptionPlan || 'none'}`}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
@@ -69,48 +108,59 @@ export default function CartSection() {
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div className="flex-1">
                       <h4 className="font-medium text-base sm:text-lg">
-                        {item.name}
+                        {item.product?.title || "Unnamed Product"}
                       </h4>
                       <p className="text-[#C27AFF] text-sm">
-                        ${item.price.toFixed(2)}/mo
+                        ${(item.price / item.quantity).toFixed(2)}
+                        {item.subscriptionPlan ? `/${item.subscriptionPlan}` : ""}
                       </p>
                     </div>
 
                     <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 mt-3 sm:mt-0">
                       <div className="flex items-center gap-2 bg-[#0C1B44] rounded-full p-1">
                         <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity - 1)
-                          }
+                          onClick={() => handleUpdateQuantity(item.product._id, item.quantity - 1)}
                           className="p-1.5 rounded-full hover:bg-[#A92EDF]/20 transition-colors"
+                          disabled={updatingItems[item.product._id]}
                         >
-                          <Minus className="text-[#C27AFF] w-4 h-4" />
+                          {updatingItems[item.product._id] ? (
+                            <div className="h-4 w-4 border-2 border-[#C27AFF]/30 border-t-[#C27AFF] rounded-full animate-spin" />
+                          ) : (
+                            <Minus className="text-[#C27AFF] w-4 h-4" />
+                          )}
                         </button>
-                        <span className="w-6 text-center">{item.quantity}</span>
+                        <span className="w-6 text-center">
+                          {updatingItems[item.product._id] ? "..." : item.quantity}
+                        </span>
                         <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
-                          }
+                          onClick={() => handleUpdateQuantity(item.product._id, item.quantity + 1)}
                           className="p-1.5 rounded-full hover:bg-[#A92EDF]/20 transition-colors"
+                          disabled={updatingItems[item.product._id]}
                         >
-                          <Plus className="text-[#C27AFF] w-4 h-4" />
+                          {updatingItems[item.product._id] ? (
+                            <div className="h-4 w-4 border-2 border-[#C27AFF]/30 border-t-[#C27AFF] rounded-full animate-spin" />
+                          ) : (
+                            <Plus className="text-[#C27AFF] w-4 h-4" />
+                          )}
                         </button>
                       </div>
 
                       <div className="w-20 sm:w-24 text-right">
                         <span className="text-[#C27AFF] font-medium">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${item.price.toFixed(2)}
                         </span>
                       </div>
 
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveFromCart(item.product._id)}
                         className="p-2 rounded-full hover:bg-red-500/20 transition-colors"
+                        disabled={updatingItems[item.product._id]}
                       >
-                        <Trash2
-                          className="text-red-400 hover:text-red-300"
-                          size={18}
-                        />
+                        {updatingItems[item.product._id] ? (
+                          <div className="h-4 w-4 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin" />
+                        ) : (
+                          <Trash2 className="text-red-400 hover:text-red-300" size={18} />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -118,26 +168,10 @@ export default function CartSection() {
               ))}
             </ul>
 
-  
-
-            <div className="space-y-4 mb-6 sm:mb-8">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Subtotal:</span>
-                <span className="text-base sm:text-lg">
-                  ${subtotal.toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-400">Estimated Tax:</span>
-                <span className="text-base sm:text-lg">${tax.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t border-[#A92EDF]/30">
-                <span className="text-lg sm:text-xl font-bold text-[#C27AFF]">
-                  Total:
-                </span>
-                <span className="text-lg sm:text-xl font-bold">
-                  ${total.toFixed(2)}
-                </span>
+            <div className="flex justify-between items-center mb-6">
+              <div className="text-lg font-semibold">Total:</div>
+              <div className="text-xl font-bold text-[#C27AFF]">
+                ${cart.totalPrice.toFixed(2)}
               </div>
             </div>
 

@@ -1,5 +1,5 @@
 "use client";
-import { contactUs } from "@/app/actions.ts/contact.actions";
+import { contactUs } from "@/app/actions/contact.actions";
 import { motion } from "framer-motion";
 import {
   Mail,

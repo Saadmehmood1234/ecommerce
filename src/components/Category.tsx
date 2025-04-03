@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import { getCategory } from "@/app/actions.ts/category.actions";
+import { getCategory } from "@/app/actions/category.actions";
 
 type CategoryType = {
   title: string;

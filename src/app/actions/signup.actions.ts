@@ -1,4 +1,8 @@
 "use server";
+import { authOptions } from "../../auth";
+import { getServerSession } from "next-auth";
+
+import { revalidatePath } from "next/cache";
 import { DarkUser } from "@/model/User";
 import bcrypt from "bcryptjs";
 import { dbConnect } from "@/lib/dbConnect";
@@ -43,3 +47,37 @@ export const signup = async (data: {
     return { success: false, message: "Server error, please try again" };
   }
 };
+
+
+
+export async function updateProfile(data: { name: string; email: string }) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    throw new Error("Unauthorized");
+  }
+
+  // Here you would typically call your API or database to update the user
+  // For demonstration, we'll just simulate an API call
+  try {
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // In a real app, you would do something like:
+    // const response = await fetch('/api/users/update', {
+    //   method: 'PUT',
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
+
+    // if (!response.ok) throw new Error('Update failed');
+
+    revalidatePath("/profile");
+    return { success: true, message: "Profile updated successfully" };
+  } catch (error) {
+    console.error("Update error:", error);
+    return { success: false, message: "Failed to update profile" };
+  }
+}

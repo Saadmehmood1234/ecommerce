@@ -2,17 +2,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import {
-  ShoppingCart,
-  CheckCircle,
-  ShieldCheck,
-  Zap,
-  X,
-  ShoppingBag,
-} from "lucide-react";
+import { ShoppingCart, CheckCircle, ShieldCheck, Zap, X, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { KeyRound, Monitor, Users, Smartphone } from "lucide-react";
 import { Product } from "@/lib/types";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slices/cartSlice";
+import { AppDispatch } from "@/lib/store";
+import toast from "react-hot-toast";
 
 type ProductDetailPropType = {
   setIsDetailOpen: (value: boolean) => void;
@@ -25,8 +22,12 @@ const ProductDetail = ({
   isDetailOpen,
   product,
 }: ProductDetailPropType) => {
+  const dispatch = useDispatch<AppDispatch>();
   const [selectedImage, setSelectedImage] = useState(0);
-  console.log("Upcoming Data", product);
+  const [isAdding, setIsAdding] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [subscriptionPlan, setSubscriptionPlan] = useState<"monthly" | "yearly">("monthly");
+
   if (!product) {
     return (
       <div className="min-h-screen flex items-center justify-center text-white text-2xl">
@@ -35,10 +36,48 @@ const ProductDetail = ({
     );
   }
 
-  const addToCart = () => {
-    alert("Added to cart!");
+  const handleAddToCart = async () => {
+    if (!product) return;
+    
+    setIsAdding(true);
+    const toastId = toast.loading("Adding to cart...");
+    
+    try {
+      await dispatch(
+        addToCart({
+          product: product.id,
+          quantity: quantity,
+          price: product.price,
+          subscriptionPlan: subscriptionPlan
+        })
+      ).unwrap();
+      
+      toast.success(`${quantity} ${product.title} added to cart!`, {
+        id: toastId,
+        duration: 3000,
+        position: "bottom-right",
+        style: {
+          background: '#0C1B44',
+          color: '#fff',
+          border: '1px solid #A92EDF',
+        },
+      });
+    } catch (error: any) {
+      toast.error(error.message || "Failed to add product to cart", {
+        id: toastId,
+        duration: 3000,
+        position: "bottom-right",
+        style: {
+          background: '#0C1B44',
+          color: '#fff',
+          border: '1px solid #ff4d4f',
+        },
+      });
+      console.error("Add to cart error:", error);
+    } finally {
+      setIsAdding(false);
+    }
   };
-
   return (
     <div className="min-h-screen bg-gradient-to-tr from-[#0E091C] via-[#1F133D] to-[#0B1027] py-8 sm:py-12 md:py-16 lg:py-20">
       <div className="container mx-auto px-4 sm:px-6">
@@ -167,23 +206,26 @@ const ProductDetail = ({
                   ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-               <Link href={"/payment"}>
-               <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              <div className="flex flex-col sm:flex-row gap-3 justify-between w-full ">
+                <Link
+                  href={"/payment"}
                   className="w-full bg-[#A92EDF] hover:bg-[#8e5ea3] text-white font-bold py-2 px-4 rounded-xl flex items-center justify-center space-x-2"
-                  // onClick={}
                 >
-                  <ShoppingBag className="text-white" size={20} />
-                  <span>Buy Now</span>
-                </motion.button>
-               </Link>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full bg-[#A92EDF] hover:bg-[#8e5ea3] text-white font-bold rounded-xl flex items-center justify-center space-x-2"
+                    // onClick={}
+                  >
+                    <ShoppingBag className="text-white" size={20} />
+                    <span>Buy Now</span>
+                  </motion.button>
+                </Link>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full bg-[#A92EDF] hover:bg-[#8e5ea3] text-white font-bold py-2 px-4 rounded-xl flex items-center justify-center space-x-2"
-                  onClick={addToCart}
+                  onClick={handleAddToCart}
                 >
                   <ShoppingCart className="text-white" size={20} />
                   <span>Add To Cart</span>

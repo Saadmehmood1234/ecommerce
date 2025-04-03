@@ -8,7 +8,7 @@ import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { User, Mail, Lock } from "lucide-react"; // ✅ Fixed missing Lock import
 import { FaGoogle } from "react-icons/fa";
-import { signup } from "../../actions.ts/signup.actions";
+import { signup } from "../../actions/signup.actions";
 import { motion } from "framer-motion";
 
 const formSchema = z.object({

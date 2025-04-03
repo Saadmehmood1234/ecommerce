@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { getProduct } from "@/app/actions.ts/product.actions";
+import { getProduct } from "@/app/actions/product.actions";
 import { Product } from "@/lib/types";
 import ProductDetail from "./ProductDetail";
 const ProductSection = () => {
