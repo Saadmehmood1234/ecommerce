@@ -86,7 +86,6 @@ export const fetchCart = createAsyncThunk(
           totalPrice: 0,
         };
       }
-
       return {
         items: response.cart.items.map((item: any) => ({
           product: sanitizeProduct(item.product),
