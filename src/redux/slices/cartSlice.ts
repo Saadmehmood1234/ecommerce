@@ -79,7 +79,6 @@ export const fetchCart = createAsyncThunk(
           totalPrice: 0,
         };
       }
-
       if (Array.isArray(response.cart)) {
         console.warn("Unexpected array response for cart");
         return {
